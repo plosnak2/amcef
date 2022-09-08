@@ -9,6 +9,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import logo from '../images/amcef_logo_final.png'
 import { Link } from "react-router-dom";
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -53,6 +54,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header(props) {
+  const location = useLocation();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">

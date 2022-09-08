@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useConfirm } from 'material-ui-confirm';
 import { ListsRef } from "../firebase"
+import {Navigate, useNavigate } from 'react-router-dom'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#f084d1",
@@ -27,6 +28,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function GridComp(props) {
   const confirm = useConfirm();
+  const navigate = useNavigate();
   useEffect(() => {
     
   })
@@ -51,6 +53,7 @@ export default function GridComp(props) {
         {props.lists.map((list) => {
           // rendering either all lists if filter is empty or rendering only those list which matches filter (comparing in lowercase)
           if(props.search === '' || list.name.toLowerCase().includes(props.search.toLowerCase())){
+            const listName = list.name
             return(
               <Grid item xs={12} md={6} key={list.name}>
                 <Item>
@@ -60,7 +63,7 @@ export default function GridComp(props) {
                   <DeleteIcon onClick={() => deleteItem(list.name)} sx={{position:"absolute", right:20, top:10, fontSize:30, cursor:"pointer", "&:hover": { color: "red" }}}/>
                   </Typography>
                   <AlignItemsList items={list.items}/>
-                  <Button variant="outlined" sx={{position:"absolute", bottom:"0px", left:"50%", msTransform:"translate(-50%, -50%)", transform:"translate(-50%, -50%)"}}>Otvoriť</Button>
+                  <Button variant="outlined" sx={{position:"absolute", bottom:"0px", left:"50%", msTransform:"translate(-50%, -50%)", transform:"translate(-50%, -50%)"}} onClick={() => {navigate('/list', {state: {listName}})}}>Otvoriť</Button>
                 </Item>
               </Grid>
             )
