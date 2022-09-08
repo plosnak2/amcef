@@ -64,44 +64,46 @@ export default function AlignItemsList(props) {
       <List sx={{ width: '100%'}}>
         {props.items.map((item, index) => {
           if(props.radioValue === 'all' || (props.radioValue === 'finished' && item.finished === true) || (props.radioValue === 'active' && item.finished === false)){
-            return(
-              <div key={index}>
-                  <ListItem alignItems="flex-start">
-                      <ListItemAvatar>
-                          {item.finished === true ? <CheckCircleIcon /> : <CancelIcon />}
-                      </ListItemAvatar>
-                      <ListItemText
-                      primary={item.title}
-                      sx={{position:"relative" }}
-                      secondary={
-                          <React.Fragment>
-                          <Typography
-                          sx={{ display: 'inline'}}
-                          component="span"
-                          variant="body2"
-                          color="text.primary"
-                          >
-                              {Moment(new Date(item.date.toDate())).format('DD.MM.YYYY hh:mm:ss')}
-                              <DeleteIcon sx={{position:"absolute", right:0, top:0 , fontSize:30, cursor:"pointer", "&:hover": { color: "red" }}}
-                              onClick={() => {console.log(index)}}/>
-                          </Typography>
-                          <Typography 
-                          component="span"
-                          sx={{
-                              display: '-webkit-box',
-                              overflow: 'hidden',
-                              WebkitBoxOrient: 'vertical',
-                              wordBreak:"break-word"
-                          }}>
-                          {item.text}
-                          </Typography>
-                          </React.Fragment>
-                      }
-                      />
-                  </ListItem>
-                  <Divider variant="middle" />
-              </div>
-          )
+            if(props.searchItem === '' || item.title.toLowerCase().includes(props.searchItem.toLowerCase())){
+              return(
+                <div key={index}>
+                    <ListItem alignItems="flex-start">
+                        <ListItemAvatar>
+                            {item.finished === true ? <CheckCircleIcon /> : <CancelIcon />}
+                        </ListItemAvatar>
+                        <ListItemText
+                        primary={item.title}
+                        sx={{position:"relative" }}
+                        secondary={
+                            <React.Fragment>
+                            <Typography
+                            sx={{ display: 'inline'}}
+                            component="span"
+                            variant="body2"
+                            color="text.primary"
+                            >
+                                {Moment(new Date(item.date.toDate())).format('DD.MM.YYYY hh:mm:ss')}
+                                <DeleteIcon sx={{position:"absolute", right:0, top:0 , fontSize:30, cursor:"pointer", "&:hover": { color: "red" }}}
+                                onClick={() => {console.log(index)}}/>
+                            </Typography>
+                            <Typography 
+                            component="span"
+                            sx={{
+                                display: '-webkit-box',
+                                overflow: 'hidden',
+                                WebkitBoxOrient: 'vertical',
+                                wordBreak:"break-word"
+                            }}>
+                            {item.text}
+                            </Typography>
+                            </React.Fragment>
+                        }
+                        />
+                    </ListItem>
+                    <Divider variant="middle" />
+                </div>
+              )
+            }
           }
         })}
         

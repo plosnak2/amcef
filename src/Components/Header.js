@@ -78,17 +78,35 @@ export default function Header(props) {
           <Link style={{ textDecoration:"none" }} to="/"><Typography component="div"sx={{ fontWeight:"bold", fontFamily: "Comic Sans MS", fontSize:30, color: "white" }}>TODO LIST</Typography></Link>
          
           </Typography>
+
+          {
+            location.pathname === "/" 
+            ?
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Filtrovať zoznamy"
+                inputProps={{ 'aria-label': 'search' }}
+                value={props.search}
+                onChange={(e) => props.setSearch(e.target.value)}
+              />
+            </Search> 
+          :
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Filtrovať položky"
               inputProps={{ 'aria-label': 'search' }}
-              value={props.search}
-              onChange={(e) => props.setSearch(e.target.value)}
+              value={props.searchItem}
+              onChange={(e) => props.setSearchItem(e.target.value)}
             />
           </Search>
+          }
+          
         </Toolbar>
       </AppBar>
     </Box>

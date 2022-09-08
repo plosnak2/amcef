@@ -10,6 +10,7 @@ export default function OneList(route) {
     const params = useLocation();
     const [list, setList] = useState()
     const [loaded, setLoaded] = useState(false)
+    const [searchItem, setSearchItem] = useState('aaa')
 
     useEffect(() => {
         ListsRef.doc(params.state.listName).get()
@@ -29,8 +30,8 @@ export default function OneList(route) {
     } else{
         return(
             <div>
-                <Header />
-                <OneListBox list={list}/>
+                <Header searchItem={searchItem} setSearchItem={setSearchItem}/>
+                <OneListBox list={list} searchItem={searchItem}/>
             </div>
         )
     }

@@ -25,10 +25,6 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function OneListBox(props) {
     const [radioValue, setRadioValue] = useState('all')
 
-    useEffect(() => {
-        console.log(radioValue)
-    })
-
     return (
       <Box sx={{ flexGrow: 1, padding:5 }}>
         <Grid container spacing={10} justifyContent="center" alignItems="left">
@@ -40,7 +36,7 @@ export default function OneListBox(props) {
             </Typography>
             <RowRadioButtonsGroup radioValue={radioValue} setRadioValue={setRadioValue}/>
             <Divider variant="middle"/>
-            <AlignItemsList items={props.list.items} radioValue={radioValue}/>
+            <AlignItemsList items={props.list.items} radioValue={radioValue} searchItem={props.searchItem}/>
             </Item>
         </Grid>
         </Grid>
