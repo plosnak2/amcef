@@ -5,6 +5,7 @@ import Header from "../Components/Header";
 import CircularIndeterminate from "../Components/Loader";
 import { ListsRef } from '../firebase';
 import OneListBox from '../Components/OneListBox';
+import { ConfirmProvider } from 'material-ui-confirm';
 
 export default function OneList(route) {
     const params = useLocation();
@@ -23,16 +24,16 @@ export default function OneList(route) {
     if(!loaded){
         return(
             <div>
-                <Header />
+                <Header searchItem={searchItem} setSearchItem={setSearchItem}/>
                 <CircularIndeterminate />
             </div>
         )
     } else{
         return(
-            <div>
+            <ConfirmProvider>
                 <Header searchItem={searchItem} setSearchItem={setSearchItem}/>
                 <OneListBox list={list} searchItem={searchItem}/>
-            </div>
+            </ConfirmProvider>
         )
     }
 }

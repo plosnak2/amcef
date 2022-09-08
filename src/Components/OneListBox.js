@@ -28,7 +28,7 @@ export default function OneListBox(props) {
     return (
       <Box sx={{ flexGrow: 1, padding:5 }}>
         <Grid container spacing={10} justifyContent="center" alignItems="left">
-        <Grid item xs={8}>
+        <Grid item xs={12} md={10}>
             <Item>
             <Typography variant="h6" sx={{ fontSize:25, textAlign:"center", fontFamily: "Comic Sans MS", marginBottom:"10px"}}>
                   {props.list.name}
@@ -36,7 +36,7 @@ export default function OneListBox(props) {
             </Typography>
             <RowRadioButtonsGroup radioValue={radioValue} setRadioValue={setRadioValue}/>
             <Divider variant="middle"/>
-            <AlignItemsList items={props.list.items} radioValue={radioValue} searchItem={props.searchItem}/>
+            <AlignItemsList items={props.list.items} radioValue={radioValue} searchItem={props.searchItem} docId={props.list.name}/>
             </Item>
         </Grid>
         </Grid>
