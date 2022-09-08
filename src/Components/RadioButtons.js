@@ -18,7 +18,7 @@ export default function RowRadioButtonsGroup(props) {
             onChange={(e) => props.setRadioValue(e.target.value)}
         >
             <FormControlLabel value="all" control={<Radio />} label="Všetky"/>
-            <FormControlLabel value="active" control={<Radio />} label="Aktívne" />
+            <FormControlLabel value="active" control={<Radio />} label="Nedokončené" />
             <FormControlLabel value="finished" control={<Radio />} label="Dokončené" />
         </RadioGroup>
         </FormControl>

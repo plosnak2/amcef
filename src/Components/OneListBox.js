@@ -40,7 +40,7 @@ export default function OneListBox(props) {
             </Typography>
             <RowRadioButtonsGroup radioValue={radioValue} setRadioValue={setRadioValue}/>
             <Divider variant="middle"/>
-            <AlignItemsList items={props.list.items}/>
+            <AlignItemsList items={props.list.items} radioValue={radioValue}/>
             </Item>
         </Grid>
         </Grid>
