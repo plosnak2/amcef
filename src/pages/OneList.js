@@ -10,7 +10,7 @@ export default function OneList(route) {
     const params = useLocation();
     const [list, setList] = useState()
     const [loaded, setLoaded] = useState(false)
-    const [searchItem, setSearchItem] = useState('aaa')
+    const [searchItem, setSearchItem] = useState('')
 
     useEffect(() => {
         ListsRef.doc(params.state.listName).get()
