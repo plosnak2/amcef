@@ -8,6 +8,7 @@ import { ConfirmProvider } from 'material-ui-confirm';
 export default function HomePage() {
     const [loaded, setLoaded] = useState(false)
     const [lists, setLists] = useState([])
+    const [search, setSearch] = useState('')
 
     // fetching data from firebase database (information about lists)
     useEffect( () => {
@@ -49,8 +50,8 @@ export default function HomePage() {
     } else {
         return (
             <ConfirmProvider>
-              <Header />
-              <GridComp lists={lists} listDeleted={listDeleted}/>
+              <Header search={search} setSearch={setSearch}/>
+              <GridComp lists={lists} listDeleted={listDeleted} search={search} setSearch={setSearch}/>
             </ConfirmProvider>
           );
     }

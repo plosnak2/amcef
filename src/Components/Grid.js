@@ -38,6 +38,7 @@ export default function GridComp(props) {
         ListsRef.doc(listName).delete()
         .then(() => {
           props.listDeleted()
+          props.setSearch('')
         })
       })
       .catch(() => { 
@@ -48,20 +49,22 @@ export default function GridComp(props) {
     <Box sx={{ flexGrow: 1, padding:5 }}>
       <Grid container spacing={10} justifyContent="left" alignItems="left">
         {props.lists.map((list) => {
-          console.log(list)
-          return(
-            <Grid item xs={12} md={6} key={list.name}>
-              <Item>
-                <Typography variant="h6" sx={{ fontSize:25, textAlign:"center", fontFamily: "Comic Sans MS", marginBottom:"10px"}}>
-                {list.name}
-                <Divider variant="middle"/>
-                <DeleteIcon onClick={() => deleteItem(list.name)} sx={{position:"absolute", right:20, top:10, fontSize:30, cursor:"pointer", "&:hover": { color: "red" }}}/>
-                </Typography>
-                <AlignItemsList items={list.items}/>
-                <Button variant="outlined" sx={{position:"absolute", bottom:"0px", left:"50%", msTransform:"translate(-50%, -50%)", transform:"translate(-50%, -50%)"}}>Otvoriť</Button>
-              </Item>
-            </Grid>
-          )
+          // rendering either all lists if filter is empty or rendering only those list which matches filter (comparing in lowercase)
+          if(props.search === '' || list.name.toLowerCase().includes(props.search.toLowerCase())){
+            return(
+              <Grid item xs={12} md={6} key={list.name}>
+                <Item>
+                  <Typography variant="h6" sx={{ fontSize:25, textAlign:"center", fontFamily: "Comic Sans MS", marginBottom:"10px"}}>
+                  {list.name}
+                  <Divider variant="middle"/>
+                  <DeleteIcon onClick={() => deleteItem(list.name)} sx={{position:"absolute", right:20, top:10, fontSize:30, cursor:"pointer", "&:hover": { color: "red" }}}/>
+                  </Typography>
+                  <AlignItemsList items={list.items}/>
+                  <Button variant="outlined" sx={{position:"absolute", bottom:"0px", left:"50%", msTransform:"translate(-50%, -50%)", transform:"translate(-50%, -50%)"}}>Otvoriť</Button>
+                </Item>
+              </Grid>
+            )
+          }
         })}
       </Grid>
     </Box>
