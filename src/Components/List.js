@@ -33,7 +33,9 @@ export default function AlignItemsList(props) {
                             {Moment(new Date(item.date.toDate())).format('DD.MM.YYYY hh:mm:ss')}
 
                         </Typography>
-                        <Typography sx={{
+                        <Typography 
+                        component="span"
+                        sx={{
                             display: '-webkit-box',
                             overflow: 'hidden',
                             WebkitBoxOrient: 'vertical',

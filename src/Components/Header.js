@@ -8,6 +8,7 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import logo from '../images/amcef_logo_final.png'
 import { Link } from "react-router-dom";
+import { useState } from 'react';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -52,6 +53,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
+  const [search, setSearch] = useState('')
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -81,6 +83,8 @@ export default function Header() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             />
           </Search>
         </Toolbar>

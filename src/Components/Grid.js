@@ -8,6 +8,9 @@ import Typography from '@mui/material/Typography';
 import AlignItemsList from './List';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useConfirm } from 'material-ui-confirm';
+import { ListsRef } from "../firebase"
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#f084d1",
@@ -21,11 +24,25 @@ const Item = styled(Paper)(({ theme }) => ({
   paddingBottom:"30px"
 }));
 
-export default function GridComp(props) {
 
+export default function GridComp(props) {
+  const confirm = useConfirm();
   useEffect(() => {
     
   })
+
+  // function for deleting list from todo lists
+  function deleteItem(listName){
+    confirm({ description: 'Táto akcia sa nebude dať vrátiť späť.', title: "Prajete si vymazať tento TODO LIST?", confirmationText:"Áno", cancellationText:"Zrušiť" })
+      .then(() => { 
+        ListsRef.doc(listName).delete()
+        .then(() => {
+          props.listDeleted()
+        })
+      })
+      .catch(() => { 
+       });
+  }
 
   return (
     <Box sx={{ flexGrow: 1, padding:5 }}>
@@ -38,6 +55,7 @@ export default function GridComp(props) {
                 <Typography variant="h6" sx={{ fontSize:25, textAlign:"center", fontFamily: "Comic Sans MS", marginBottom:"10px"}}>
                 {list.name}
                 <Divider variant="middle"/>
+                <DeleteIcon onClick={() => deleteItem(list.name)} sx={{position:"absolute", right:20, top:10, fontSize:30, cursor:"pointer", "&:hover": { color: "red" }}}/>
                 </Typography>
                 <AlignItemsList items={list.items}/>
                 <Button variant="outlined" sx={{position:"absolute", bottom:"0px", left:"50%", msTransform:"translate(-50%, -50%)", transform:"translate(-50%, -50%)"}}>Otvoriť</Button>
