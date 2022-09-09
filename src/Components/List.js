@@ -34,6 +34,17 @@ export default function AlignItemsList(props) {
     .catch(() => { 
     });
   }
+
+  // function for updating finished flag in item information (changes state and also sending updated array into database)
+  function setItemFlag(index, flag){
+    const changedArr = [...items]
+    changedArr[index].finished = flag
+    setItems(changedArr)
+    ListsRef.doc(props.docId).update({items: changedArr})
+    .then(() => {
+    })
+  }
+
   if(location.pathname === "/"){
     // list that displays items on homepage among all lists
     return (
@@ -89,7 +100,10 @@ export default function AlignItemsList(props) {
                 <div key={index}>
                     <ListItem alignItems="flex-start">
                         <ListItemAvatar>
-                            {item.finished === true ? <CheckCircleIcon /> : <CancelIcon />}
+                            {item.finished === true ? 
+                            <CheckCircleIcon onClick={() => {setItemFlag(index, false)}} sx={{fontSize:30, cursor:"pointer", "&:hover": { color: "#706e6e" }}}/> 
+                            : 
+                            <CancelIcon onClick={() => {setItemFlag(index, true)}} sx={{fontSize:30, cursor:"pointer", "&:hover": { color: "#706e6e" }}}/>}
                         </ListItemAvatar>
                         <ListItemText
                         primary={item.title}
