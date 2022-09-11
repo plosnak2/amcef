@@ -36,8 +36,6 @@ export default function HomePage() {
         if(loaded === false){
             fetchData()
         }
-
-        console.log(lists)
         
     }, [lists, loaded])
 
