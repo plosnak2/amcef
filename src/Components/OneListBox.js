@@ -8,7 +8,7 @@ import AlignItemsList from './List';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import RowRadioButtonsGroup from './RadioButtons';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Form from './Form';
 import { ListsRef } from "../firebase"
 import { useConfirm } from 'material-ui-confirm';
@@ -35,7 +35,6 @@ export default function OneListBox(props) {
     function addItemToList(item){
       const changedArr = [...items]
       changedArr.push(item)
-      console.log(changedArr)
       setItems(changedArr)
       // need to recall items from firebase because there were problems with firebase timestamp, that i was sending from my form while adding item
       ListsRef.doc(props.list.name).get()
@@ -50,7 +49,6 @@ export default function OneListBox(props) {
       const changedArr = [...items]
       changedArr[index].finished = flag
       setItems(changedArr)
-      console.log(changedArr)
       ListsRef.doc(props.list.name).update({items: changedArr})
     }
 
@@ -81,7 +79,8 @@ export default function OneListBox(props) {
             <RowRadioButtonsGroup radioValue={radioValue} setRadioValue={setRadioValue}/>
             <Divider variant="middle"/>
             <AlignItemsList items={items} radioValue={radioValue} searchItem={props.searchItem} docId={props.list.name} setItemFlag={setItemFlag} deleteItem={deleteItem}/>
-            {
+            { 
+              // displaying either button or form for adding new item into list
               showButton === true 
               ?
               <Button variant="contained" sx={{position:"absolute", bottom:"0px", left:"50%", msTransform:"translate(-50%, -50%)", transform:"translate(-50%, -50%)"}} onClick={() => {setShowButton(false)}}>Pridat položku</Button>
@@ -93,4 +92,4 @@ export default function OneListBox(props) {
         </Grid> 
       </Box>
     );
-  }
+}

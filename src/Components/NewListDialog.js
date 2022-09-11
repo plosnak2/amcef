@@ -8,11 +8,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from 'react';
 import { ListsRef } from '../firebase';
-import { List } from '@mui/material';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import Alert from '@mui/material/Alert';
-import {Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const validationSchema = yup.object({
     Title: yup.string().required(),
@@ -20,20 +19,22 @@ const validationSchema = yup.object({
 
 export default function NewListDialog() {
     const [open, setOpen] = useState(false);
-    const [name, setName] = useState('')
     const [showAlert, setShowAlert] = useState(false)
     const navigate = useNavigate();
 
+    // opening dialog
     const handleClickOpen = () => {
         setOpen(true);
     };
 
+    // closing dialog
     const handleClose = () => {
         formik.values.Title = ''
         setOpen(false);
         setShowAlert(false)
     };
 
+    // handling form
     const formik = useFormik({
         initialValues: {
         Title: '',
@@ -41,6 +42,7 @@ export default function NewListDialog() {
         validationSchema: validationSchema,
         onSubmit: async (values) => {
             const doc = await ListsRef.doc(values.Title).get();
+            // if list with this name already exists i have to display error otherwise create list in db
             if(doc.exists){
                 setShowAlert(true)
             } else {

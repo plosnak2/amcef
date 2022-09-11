@@ -21,78 +21,81 @@ const validationSchema = yup.object({
 });
 
 export default function Form(props){
-  const [dateTime, setDateTime] = React.useState(dayjs(new Date()));
+    const [dateTime, setDateTime] = React.useState(dayjs(new Date()));
 
-  const handleChange = (newValue) => {
-    setDateTime(newValue);
-  };
+    const handleChange = (newValue) => {
+      setDateTime(newValue);
+    };
 
-  const formik = useFormik({
-    initialValues: {
-      Title: '',
-      Text: '',
-    },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      const newItem = {
-        date: dateTime.toDate(),
-        finished: false,
-        text: formik.values.Text,
-        title: formik.values.Title
-      }
-      console.log(dateTime.toString())
-      ListsRef.doc(props.docId).update({
-        items: firebase.firestore.FieldValue.arrayUnion(newItem)
-      })
-      .then(() => {
-        props.addItemToList({
-          date: dateTime,
+    // handling form
+    const formik = useFormik({
+      initialValues: {
+        Title: '',
+        Text: '',
+      },
+      validationSchema: validationSchema,
+      onSubmit: (values) => {
+        // creating new item
+        const newItem = {
+          date: dateTime.toDate(),
           finished: false,
           text: formik.values.Text,
           title: formik.values.Title
+        }
+        // sending item into database
+        ListsRef.doc(props.docId).update({
+          items: firebase.firestore.FieldValue.arrayUnion(newItem)
         })
-      })
-    },
-  });
+        .then(() => {
+          // notifying parent about adding item
+          props.addItemToList({
+            date: dateTime,
+            finished: false,
+            text: formik.values.Text,
+            title: formik.values.Title
+          })
+        })
+      },
+    });
 
-  return (
-    <Box sx={{ width:"70%", marginLeft:"15%"}}>
-      <form onSubmit={formik.handleSubmit}>
-        <TextField
-          fullWidth
-          id="title"
-          name="Title"
-          label="Názov položky"
-          value={formik.values.Title}
-          onChange={formik.handleChange}
-          error={formik.touched.Title && Boolean(formik.errors.Title)}
-          helperText={formik.touched.Title && "Zadajte názov položky"}
-        />
-        <TextField
-          fullWidth
-          id="text"
-          name="Text"
-          label="Text položky"
-          value={formik.values.Text}
-          onChange={formik.handleChange}
-          error={formik.touched.Text && Boolean(formik.errors.Text)}
-          helperText={formik.touched.Text && "Zadajte text položky"}
-          sx={{marginTop:"10px"}}
-        />
-        <LocalizationProvider dateAdapter={AdapterDayjs} >
-        <DateTimePicker
-          label="Dátum a čas"
-          value={dateTime}
-          onChange={handleChange}
-          renderInput={(params) => <TextField {...params} 
-          sx={{marginTop:"10px"}}/>}
-        />
-        </LocalizationProvider>
-        <Button color="primary" variant="contained" fullWidth type="submit" sx={{marginTop:"10px"}}>
-          Pridať
-        </Button>
-      </form>
-    </Box>
-  );
+    return (
+      <Box sx={{ width:"70%", marginLeft:"15%"}}>
+        <form onSubmit={formik.handleSubmit}>
+          <TextField
+            fullWidth
+            id="title"
+            name="Title"
+            label="Názov položky"
+            value={formik.values.Title}
+            onChange={formik.handleChange}
+            error={formik.touched.Title && Boolean(formik.errors.Title)}
+            helperText={formik.touched.Title && "Zadajte názov položky"}
+          />
+          <TextField
+            fullWidth
+            id="text"
+            name="Text"
+            label="Text položky"
+            value={formik.values.Text}
+            onChange={formik.handleChange}
+            error={formik.touched.Text && Boolean(formik.errors.Text)}
+            helperText={formik.touched.Text && "Zadajte text položky"}
+            sx={{marginTop:"10px"}}
+          />
+          <LocalizationProvider dateAdapter={AdapterDayjs} >
+          <DateTimePicker
+            label="Dátum a čas"
+            value={dateTime}
+            onChange={handleChange}
+            renderInput={(params) => <TextField {...params} 
+            sx={{marginTop:"10px"}}/>}
+          />
+          </LocalizationProvider>
+          <Button color="primary" variant="contained" fullWidth type="submit" sx={{marginTop:"10px"}}>
+            Pridať
+          </Button>
+        </form>
+      </Box>
+    );
 };
 

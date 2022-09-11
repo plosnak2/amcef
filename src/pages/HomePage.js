@@ -4,7 +4,6 @@ import { ListsRef } from "../firebase"
 import { useState, useEffect } from "react";
 import CircularIndeterminate from "../Components/Loader";
 import { ConfirmProvider } from 'material-ui-confirm';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import NewListDialog from "../Components/NewListDialog";
 
@@ -19,9 +18,7 @@ export default function HomePage() {
             const snapshot = await ListsRef.get();
             const tempLists = []
             if (snapshot.empty) {
-                // TODO dorobit ked nebudu žiadne listy
                 setLoaded(true)
-                console.log('No matching documents.');
                 return;
             }
             snapshot.forEach(doc => {
@@ -31,16 +28,20 @@ export default function HomePage() {
             setLoaded(true)
         }
 
-        // if my data are already loaded i don´t need to revoke useEffect again
+        // if my data are already loaded i don´t need to fetch them again
         if(loaded === false){
             fetchData()
         }
+
+        console.log(lists)
         
     }, [lists, loaded])
 
-    // function that is sent to Grid Component so when the one of the list is deleted re-render happens
-    function listDeleted(){
-        setLoaded(false)
+    // function that is sent to Grid Component so when the one of the list is deleted re-render happens with new array of lists
+    function listDeleted(index){
+        const reducedArr = [...lists]
+        reducedArr.splice(index, 1);
+        setLists(reducedArr)
     }
 
     if(!loaded){
@@ -62,6 +63,4 @@ export default function HomePage() {
             </ConfirmProvider>
           );
     }
-
-    
-  }
+}
