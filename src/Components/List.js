@@ -4,52 +4,21 @@ import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Moment from 'moment';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useLocation } from 'react-router-dom'
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useState } from 'react';
-import { useConfirm } from 'material-ui-confirm';
-import { ListsRef } from "../firebase"
 
 export default function AlignItemsList(props) {
-  const confirm = useConfirm();
   const location = useLocation();
-  const [items, setItems] = useState(props.items)
-
-  // function for deleting item from todo list
-  function deleteItem(index){
-    confirm({ description: 'Táto akcia sa nebude dať vrátiť späť.', title: "Prajete si vymazať túto položku zo zoznamu?", confirmationText:"Áno", cancellationText:"Zrušiť" })
-    .then(() => { 
-      const reducedArr = [...items]
-      reducedArr.splice(index, 1);
-      setItems(reducedArr)
-      ListsRef.doc(props.docId).update({items: reducedArr})
-      .then(() => {
-      })
-    })
-    .catch(() => { 
-    });
-  }
-
-  // function for updating finished flag in item information (changes state and also sending updated array into database)
-  function setItemFlag(index, flag){
-    const changedArr = [...items]
-    changedArr[index].finished = flag
-    setItems(changedArr)
-    ListsRef.doc(props.docId).update({items: changedArr})
-    .then(() => {
-    })
-  }
 
   if(location.pathname === "/"){
     // list that displays items on homepage among all lists
     return (
       <List sx={{ width: '100%'}}>
-        {items.map((item) => {
+        {props.items.map((item) => {
           return(
               <div key={item.title}>
                   <ListItem alignItems="flex-start">
@@ -93,7 +62,7 @@ export default function AlignItemsList(props) {
     // list that displays items of single list on the single list page (has special features and displays more info)
     return (
       <List sx={{ width: '100%'}}>
-        {items.map((item, index) => {
+        {props.items.map((item, index) => {
           if(props.radioValue === 'all' || (props.radioValue === 'finished' && item.finished === true) || (props.radioValue === 'active' && item.finished === false)){
             if(props.searchItem === '' || item.title.toLowerCase().includes(props.searchItem.toLowerCase())){
               return(
@@ -101,9 +70,9 @@ export default function AlignItemsList(props) {
                     <ListItem alignItems="flex-start">
                         <ListItemAvatar>
                             {item.finished === true ? 
-                            <CheckCircleIcon onClick={() => {setItemFlag(index, false)}} sx={{fontSize:30, cursor:"pointer", "&:hover": { color: "#706e6e" }}}/> 
+                            <CheckCircleIcon onClick={() => {props.setItemFlag(index, false)}} sx={{fontSize:30, cursor:"pointer", "&:hover": { color: "#706e6e" }}}/> 
                             : 
-                            <CancelIcon onClick={() => {setItemFlag(index, true)}} sx={{fontSize:30, cursor:"pointer", "&:hover": { color: "#706e6e" }}}/>}
+                            <CancelIcon onClick={() => {props.setItemFlag(index, true)}} sx={{fontSize:30, cursor:"pointer", "&:hover": { color: "#706e6e" }}}/>}
                         </ListItemAvatar>
                         <ListItemText
                         primary={item.title}
@@ -115,10 +84,10 @@ export default function AlignItemsList(props) {
                             component="span"
                             variant="body2"
                             color="text.primary"
-                            >
-                                {Moment(new Date(item.date.toDate())).format('DD.MM.YYYY hh:mm:ss')}
+                            >   
+                                {Moment(item.date.toDate()).format('DD.MM.YYYY HH:mm:ss')}
                                 <DeleteIcon sx={{position:"absolute", right:0, top:0 , fontSize:30, cursor:"pointer", "&:hover": { color: "red" }}}
-                                onClick={() => {deleteItem(index)}}/>
+                                onClick={() => {props.deleteItem(index)}}/>
                             </Typography>
                             <Typography 
                             component="span"
