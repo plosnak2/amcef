@@ -20,6 +20,7 @@ export default function HomePage() {
             const tempLists = []
             if (snapshot.empty) {
                 // TODO dorobit ked nebudu žiadne listy
+                setLoaded(true)
                 console.log('No matching documents.');
                 return;
             }
