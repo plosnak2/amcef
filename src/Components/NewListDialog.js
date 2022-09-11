@@ -1,3 +1,7 @@
+/**
+ * Author: Jakub Zaukolec
+ * This is component that displays dialog for adding new list into lists on homepage
+ */
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';

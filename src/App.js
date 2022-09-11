@@ -1,3 +1,7 @@
+/**
+ * Author: Jakub Zaukolec
+ * This is logical component that provides routing over all pages
+ */
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import HomePage from './pages/HomePage.js';
 import React, { Component } from 'react';

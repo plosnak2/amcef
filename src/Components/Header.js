@@ -1,3 +1,7 @@
+/**
+ * Author: Jakub Zaukolec
+ * This is component that displays header (on homepage and also list page)
+ */
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';

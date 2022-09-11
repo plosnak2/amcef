@@ -1,3 +1,7 @@
+/**
+ * Author: Jakub Zaukolec
+ * This is component that displays homepage
+ */
 import Header from "../Components/Header";
 import GridComp from "../Components/Grid";
 import { ListsRef } from "../firebase"

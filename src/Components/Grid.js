@@ -1,3 +1,7 @@
+/**
+ * Author: Jakub Zaukolec
+ * This is component for rendering all lists on homepage
+ */
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';

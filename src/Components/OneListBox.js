@@ -1,3 +1,7 @@
+/**
+ * Author: Jakub Zaukolec
+ * This is component that displays Box with information about one list on list page
+ */
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';

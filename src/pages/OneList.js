@@ -1,3 +1,7 @@
+/**
+ * Author: Jakub Zaukolec
+ * This is component that displays sub-page with information about single list
+ */
 import * as React from 'react';
 import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
