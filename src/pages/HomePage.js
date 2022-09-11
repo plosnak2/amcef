@@ -4,6 +4,9 @@ import { ListsRef } from "../firebase"
 import { useState, useEffect } from "react";
 import CircularIndeterminate from "../Components/Loader";
 import { ConfirmProvider } from 'material-ui-confirm';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import NewListDialog from "../Components/NewListDialog";
 
 export default function HomePage() {
     const [loaded, setLoaded] = useState(false)
@@ -51,6 +54,9 @@ export default function HomePage() {
         return (
             <ConfirmProvider>
               <Header search={search} setSearch={setSearch}/>
+              <Box sx={{textAlign:"center", marginTop:"20px"}}>
+                <NewListDialog />
+              </Box>
               <GridComp lists={lists} listDeleted={listDeleted} search={search} setSearch={setSearch}/>
             </ConfirmProvider>
           );

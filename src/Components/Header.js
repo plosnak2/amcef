@@ -75,7 +75,7 @@ export default function Header(props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-          <Link style={{ textDecoration:"none" }} to="/"><Typography component="div"sx={{ fontWeight:"bold", fontFamily: "Comic Sans MS", fontSize:30, color: "white" }}>TODO LIST</Typography></Link>
+          <Link style={{ textDecoration:"none" }} to="/"><Typography component="div"sx={{ fontWeight:"bold", fontFamily: "Comic Sans MS", fontSize:30, color: "white", position:"absolute", left:"50%", msTransform:"translate(-50%, -50%)", transform:"translate(-50%, -50%)" }}>TODO LIST</Typography></Link>
          
           </Typography>
 

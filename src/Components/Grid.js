@@ -29,9 +29,6 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function GridComp(props) {
   const confirm = useConfirm();
   const navigate = useNavigate();
-  useEffect(() => {
-    
-  })
 
   // function for deleting list from todo lists
   function deleteItem(listName){
