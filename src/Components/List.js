@@ -35,7 +35,7 @@ export default function AlignItemsList(props) {
                           variant="body2"
                           color="text.primary"
                           >
-                              {Moment(new Date(item.date.toDate())).format('DD.MM.YYYY hh:mm:ss')}
+                              {Moment(new Date(item.date.toDate())).format('DD.MM.YYYY HH:mm')}
   
                           </Typography>
                           <Typography 
@@ -85,7 +85,7 @@ export default function AlignItemsList(props) {
                             variant="body2"
                             color="text.primary"
                             >   
-                                {Moment(item.date.toDate()).format('DD.MM.YYYY HH:mm:ss')}
+                                {Moment(item.date.toDate()).format('DD.MM.YYYY HH:mm')}
                                 <DeleteIcon sx={{position:"absolute", right:0, top:0 , fontSize:30, cursor:"pointer", "&:hover": { color: "red" }}}
                                 onClick={() => {props.deleteItem(index)}}/>
                             </Typography>
