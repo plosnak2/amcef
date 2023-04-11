@@ -10,7 +10,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import logo from '../images/amcef_logo_final.png'
+import logo from '../images/FIT.png'
 import { Link } from "react-router-dom";
 import { useLocation } from 'react-router-dom'
 
